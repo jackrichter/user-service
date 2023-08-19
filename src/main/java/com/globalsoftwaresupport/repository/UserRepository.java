@@ -23,7 +23,7 @@ public class UserRepository {
     }
 
     public void save(User user) {
-        user.setId(users.size());
+        user.setId((long)users.size());
         this.users.add(user);
     }
 

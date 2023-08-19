@@ -1,13 +1,13 @@
 package com.globalsoftwaresupport.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
 
 //@JsonIgnoreProperties(value = {"id", "email"})
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserTmp {
 
 //    @JsonIgnore
     private long id;
@@ -17,11 +17,15 @@ public class User {
     private String lastName;
     private String email;
 
-    public User(Long id, String firstName, String lastName, String email) {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date date;
+
+    public UserTmp(Long id, String firstName, String lastName, String email, Date date) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.date = date;
     }
 
     public long getId() {
@@ -54,5 +58,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

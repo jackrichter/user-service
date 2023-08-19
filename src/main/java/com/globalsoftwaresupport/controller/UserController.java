@@ -2,6 +2,7 @@ package com.globalsoftwaresupport.controller;
 
 import com.globalsoftwaresupport.model.PatchUserRequest;
 import com.globalsoftwaresupport.model.User;
+import com.globalsoftwaresupport.model.UserTmp;
 import com.globalsoftwaresupport.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +57,7 @@ public class UserController {
 
     // http://localhost:8080/v1/test?id=1&name=Adam
     @GetMapping("/test")
-    public String test2(@RequestParam int id, @RequestParam String name) {
+    public String test(@RequestParam int id, @RequestParam String name) {
         return ("id: " + id + ", name: " + name );
     }
 
@@ -90,5 +92,18 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("own-property", "properties value");
         return new ResponseEntity<>("This is the default value:  " + num, headers, HttpStatus.ACCEPTED);
+    }
+
+    /**
+     * Json tests for Date
+     */
+    @GetMapping("/test2")
+    public UserTmp test2() {
+        return new UserTmp(100L,"first", "last", "email", new Date());
+    }
+
+    @PostMapping("/test3")
+    public void test3(@RequestBody UserTmp userTmp) {
+        System.out.println(userTmp.getDate());
     }
 }
