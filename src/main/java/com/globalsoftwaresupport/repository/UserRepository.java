@@ -1,6 +1,5 @@
 package com.globalsoftwaresupport.repository;
 
-import com.globalsoftwaresupport.model.PatchUserRequest;
 import com.globalsoftwaresupport.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +12,9 @@ public class UserRepository {
 
     public UserRepository() {
         this.users = new ArrayList<>();
-        users.add(new User(0L, "Adam", "Spacey", "adam@gmail.com"));
-        users.add(new User(1L, "Dan", "Smith", "dan@gmail.com"));
-        users.add(new User(2L, "Ana", "Heck", "ana@gmail.com"));
+        users.add(new User("Adam", "Spacey", "adam@gmail.com"));
+        users.add(new User("Dan", "Smith", "dan@gmail.com"));
+        users.add(new User("Ana", "Heck", "ana@gmail.com"));
     }
 
     public List<User> getUsers() {
@@ -23,7 +22,7 @@ public class UserRepository {
     }
 
     public void save(User user) {
-        user.setId((long)users.size());
+//        user.setId((long)users.size());
         this.users.add(user);
     }
 

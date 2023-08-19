@@ -1,24 +1,47 @@
 package com.globalsoftwaresupport.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//@JsonIgnoreProperties(value = {"id", "email"})
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
-//    @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-//    @JsonProperty("first_name")
+
+    @Column(length = 30)
+    @JsonProperty("first_name")
     private String firstName;
-//    @JsonProperty("last_name")
+
+    @Column(length = 30)
+    @JsonProperty("last_name")
     private String lastName;
+
+    @Column(length = 20)
     private String email;
 
-    public User(Long id, String firstName, String lastName, String email) {
-        this.id = id;
+    @Transient
+    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
+    private Date date;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "gender", column = @Column(name = "user_gender")),
+            @AttributeOverride(name = "phone", column = @Column(name = "user_phone"))
+    })
+    private PersonContact personContact;
+
+    public User() {}
+
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -54,5 +77,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

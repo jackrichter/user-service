@@ -2,6 +2,17 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  datasource:
+    url: "jdbc:mysql://localhost:3306/udemy_db"
+    username: jackr
+    password: mysql@123
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 server:
   port: 8082

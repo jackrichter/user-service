@@ -4,7 +4,6 @@ import com.globalsoftwaresupport.model.PatchUserRequest;
 import com.globalsoftwaresupport.model.User;
 import com.globalsoftwaresupport.model.UserTmp;
 import com.globalsoftwaresupport.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
