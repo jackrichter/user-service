@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,10 +28,10 @@ public class User {
     @Column(length = 20)
     private String email;
 
-    @Transient
     @JsonIgnore
+    @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    private Date date;
+    private Date creationDate;
 
     @Embedded
     @AttributeOverrides({
@@ -79,11 +80,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreationDate(Date date) {
+        this.creationDate = date;
     }
 }
