@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -23,29 +25,46 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody User user) {
         userService.create(user);
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable("id") String userId) {
-        return userService.getUser(userId);
+        var user = Optional.ofNullable(userId)
+                .map(u -> Long.valueOf(u))
+                .map(userService::getUser)
+                .orElseThrow();
+
+        return user;
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String userId) {
-        userService.delete(Integer.valueOf(userId));
+        // Using Stream API
+        User user = Optional.ofNullable(userId)
+                .map(u -> Long.valueOf(u))
+                .map(userService::getUser)
+                .orElseThrow();
+
+        userService.delete(user.getUserId());
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable("id") String userId, @RequestBody PatchUserRequest request) {
-        userService.update(userId, request);
+        User user = Optional.ofNullable(userId)
+                .map(u -> Long.valueOf(u))
+                .map(userService::getUser)
+                .orElseThrow();
+
+        userService.update(user, request);
     }
 
     // @PathVariable vs @RequestParam

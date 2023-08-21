@@ -3,7 +3,7 @@ package com.globalsoftwaresupport.model;
 public class PatchUserRequest {
 
     private String firstName;
-    private String lasttName;
+    private String lastName;
     private String email;
 
     public String getFirstName() {
@@ -14,12 +14,12 @@ public class PatchUserRequest {
         this.firstName = firstName;
     }
 
-    public String getLasttName() {
-        return lasttName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLasttName(String lasttName) {
-        this.lasttName = lasttName;
+    public void setLastName(String lasttName) {
+        this.lastName = lasttName;
     }
 
     public String getEmail() {

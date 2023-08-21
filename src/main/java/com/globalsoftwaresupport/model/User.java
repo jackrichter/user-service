@@ -15,7 +15,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @JsonIgnore                                         // Don't show in json representation
+    private long userId;
 
     @Column(length = 30)
     @JsonProperty("first_name")
@@ -28,17 +29,17 @@ public class User {
     @Column(length = 20)
     private String email;
 
-    @JsonIgnore
+    @JsonProperty("creation_date")
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date creationDate;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "gender", column = @Column(name = "user_gender")),
-            @AttributeOverride(name = "phone", column = @Column(name = "user_phone"))
-    })
-    private PersonContact personContact;
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "gender", column = @Column(name = "user_gender")),
+//            @AttributeOverride(name = "phone", column = @Column(name = "user_phone"))
+//    })
+//    private PersonContact personContact;
 
     public User() {}
 
@@ -48,12 +49,12 @@ public class User {
         this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long id) {
+        this.userId = id;
     }
 
     public String getFirstName() {
